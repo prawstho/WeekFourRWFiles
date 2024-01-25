@@ -25,6 +25,14 @@ const server = http.createServer((request, response) => {
       path += 'about.html';
       routes.aboutPage(path, response);
       break;
+    case '/event':
+      myEmitter.emit('event', request.url, 'INFO', 'An event route was requested');
+      response.writeHead(200, { 'Content-Type': 'text/plain' });
+      response.end('An event route was requested');
+      break;
+    case '/folder':
+      routes.createFolder(request, response);
+      break;
     default:
       let message = `404 Not Found: ${request.url}`;
       if(DEBUG) console.log(message);
